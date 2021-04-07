@@ -1,0 +1,122 @@
+<title>Calculator</title>
+
+
+
+<head><b>CALCULATOR</b></head><br><br>
+
+<body>
+    <div class="calculator">
+        <div class="screen">0</div><br>
+        <button class="Clear-btn">Clear</button>
+        <button class="Delete-btn">Delete</button><br>
+
+        <button class="btn">7</button>
+        <button class="btn">8</button>
+        <button class="btn">9</button>
+        <button class="op-btn">/</button><br>
+
+        <button class="btn">4</button>
+        <button class="btn">5</button>
+        <button class="btn">6</button>
+        <button class="op-btn">*</button><br>
+
+        <button class="btn">1</button>
+        <button class="btn">2</button>
+        <button class="btn">3</button>
+        <button class="op-btn">-</button><br>
+
+        <button class="btn">.</button>
+        <button class="btn">0</button>
+        <button class="eql">=</button>
+        <button class="op-btn">+</button>
+    </div>
+</body>
+
+<script>
+    let screen = document.querySelector(".screen");
+
+    let firstOperand = 0;
+
+    let secondOperand = 0;
+
+    let operator = "";
+
+    let numberButtons = document.querySelectorAll(".btn");
+
+    let deleteButton = document.querySelector(".Delete-btn");
+
+    let clearButton = document.querySelector(".Clear-btn");
+
+    let equalButton = document.querySelector(".eql");
+
+    let opButtons = document.querySelectorAll(".op-btn");
+
+    clearButton.addEventListener("click", clear);
+
+    deleteButton.addEventListener("click", del);
+
+    numberButtons.forEach((button) =>
+        button.addEventListener("click", () => appendNumber(button.textContent))
+    );
+
+    opButtons.forEach((opButton) => opButton.addEventListener("click", () => {
+        firstOperand = screen.textContent;
+        operator = opButton.textContent;
+        screen.textContent = "0";
+    }));
+
+
+    equalButton.addEventListener("click", () => {
+        secondOperand = screen.textContent;
+        if (operator == "+") { screen.textContent = parseFloat(firstOperand) + parseFloat(secondOperand); }
+        else if (operator == "-") { screen.textContent = parseFloat(firstOperand) - parseFloat(secondOperand); }
+        else if (operator == "*") { screen.textContent = parseFloat(firstOperand) * parseFloat(secondOperand); }
+        else if (operator == "/") { screen.textContent = parseFloat(firstOperand) / parseFloat(secondOperand); }
+    });
+
+    function del() {
+        screen.textContent = screen.textContent.slice(0, -1);
+        if (screen.textContent == "") { screen.textContent = "0"; }
+    }
+
+    function clear() {
+        screen.textContent = "0";
+    }
+
+    function appendNumber(number) {
+        if (screen.textContent == "0") { screen.textContent = ""; }
+        screen.textContent += number;
+    }
+
+</script>
+
+<style>
+.btn, .op-btn, .eql{
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+
+.Clear-btn, .Delete-btn{
+  width: 54px;
+  height: auto;
+  cursor: pointer;
+}
+
+.calculator {
+  max-width: 112px;
+  border: 1px solid black;
+  padding: 5px;
+  background-color: lightgreen;
+  box-shadow: 2px 2px;
+}
+
+.screen {
+  min-height: 20px;
+  word-break: break-all;
+  border: 1px solid black;
+  padding: 5px;
+  background-color: beige;
+}
+
+</style>
